@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\CategoryController;
 
 /*
@@ -20,3 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/categories',[CategoryController::class, 'index'])->name('api.categories.index');
+
+Route::group(['prefix' => 'articles', 'as' => 'api.articles.'], function () {
+    Route::get('/', [ArticleController::class, 'index'])->name('index');
+    Route::get('/{article}', [ArticleController::class, 'show'])->name('show');
+});
