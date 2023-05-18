@@ -14,7 +14,7 @@ defineProps({
     <AuthenticatedLayout title="Profile">
         <template #header>
             <h2
-                class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
+                class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200"
             >
                 Profile
             </h2>
@@ -22,7 +22,7 @@ defineProps({
 
         <div class="space-y-6">
             <div
-                class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg"
             >
                 <UpdateProfileInformationForm
                     :must-verify-email="mustVerifyEmail"
@@ -32,13 +32,13 @@ defineProps({
             </div>
 
             <div
-                class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg"
             >
                 <UpdatePasswordForm class="max-w-xl" />
             </div>
 
             <div
-                class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg" id="delete-account-form"
             >
                 <DeleteUserForm class="max-w-xl" />
             </div>

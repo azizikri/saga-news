@@ -27,7 +27,7 @@ class ArticleRequest extends FormRequest
             'category_id' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'exists:categories,id'],
             'title' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'string', 'max:255'],
             'content' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'string'],
-            'banner' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'image', 'max:1024', 'mime:jpeg,png,jpg,gif,webp'],
+            'banner' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'image', 'max:1024', 'mimes:jpeg,png,jpg,gif,webp'],
         ];
     }
 

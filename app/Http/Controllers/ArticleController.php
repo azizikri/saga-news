@@ -63,18 +63,16 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
-        $article = [
-            'id' => $article->id,
-            'title' => $article->title,
-            'content' => $article->content,
-            'category' => $article->category->name,
-            'user' => $article->user->name,
-            'banner' => $article->banner_url,
-            'created_at' => $article->created_at->diffForHumans(),
-        ];
-        
         return Inertia::render('Articles/Show', [
-            'article' => $article,
+            'article' => [
+                'id' => $article->id,
+                'title' => $article->title,
+                'content' => $article->content,
+                'category' => $article->category->name,
+                'user' => $article->user->name,
+                'banner' => $article->banner_url,
+                'created_at' => $article->created_at->diffForHumans(),
+            ],
         ]);
     }
 

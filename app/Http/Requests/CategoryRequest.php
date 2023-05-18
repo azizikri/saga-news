@@ -23,7 +23,7 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'string', 'max:255', Rule::unique('categories', 'name')->ignore($this->category),],
+            'name' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'string', 'max:255', Rule::unique('categories', 'name')->ignore($this->category)],
         ];
     }
 

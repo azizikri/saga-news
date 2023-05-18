@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index()
     {
         $filters = [
-            'name' => request(['name']),
+            'name' => request('name'),
         ];
 
         $categories = Category::query()->filter($filters)->latest()->paginate(5);

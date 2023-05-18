@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,25 +44,36 @@ Route::get('/components/buttons', function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::group(['as' => 'articles.'], function () {
-        Route::get('/articles', [ArticleController::class, 'index'])->name('index');
-        Route::get('/articles/create', [ArticleController::class, 'create'])->name('create');
-        Route::post('/articles', [ArticleController::class, 'store'])->name('store');
-        Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('show');
-        Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('edit');
-        Route::patch('/articles/{article}', [ArticleController::class, 'update'])->name('update');
-        Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('destroy');
+    Route::group(['prefix' => 'articles', 'as' => 'articles.'], function () {
+        Route::get('/', [ArticleController::class, 'index'])->name('index');
+        Route::get('/create', [ArticleController::class, 'create'])->name('create');
+        Route::post('/', [ArticleController::class, 'store'])->name('store');
+        Route::get('/{article}', [ArticleController::class, 'show'])->name('show');
+        Route::get('/{article}/edit', [ArticleController::class, 'edit'])->name('edit');
+        Route::patch('/{article}', [ArticleController::class, 'update'])->name('update');
+        Route::delete('/{article}', [ArticleController::class, 'destroy'])->name('destroy');
     });
 
-    Route::group(['as' => 'categories.'], function () {
-        Route::get('/categories', [CategoryController::class, 'index'])->name('index');
-        Route::get('/categories/create', [CategoryController::class, 'create'])->name('create');
-        Route::post('/categories', [CategoryController::class, 'store'])->name('store');
-        Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('edit');
-        Route::patch('/categories/{category}', [CategoryController::class, 'update'])->name('update');
-        Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+    Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('create');
+        Route::post('/', [CategoryController::class, 'store'])->name('store');
+        Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('edit');
+        Route::patch('/{category}', [CategoryController::class, 'update'])->name('update');
+        Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
     });
 
+});
+
+Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+        Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::get('/create', [UserController::class, 'create'])->name('create');
+        Route::post('/', [UserController::class, 'store'])->name('store');
+        Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit');
+        Route::patch('/{user}', [UserController::class, 'update'])->name('update');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
+    });
 });
 
 

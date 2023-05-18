@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Admin;
 
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -11,7 +13,7 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -22,7 +24,26 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'string', 'max:255'],
+            'email' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
+            'password' => ['sometimes', 'string', 'min:8', 'confirmed', Password::defaults()],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->input('password') === null) {
+            $this->request->remove('password');
+        }
+
+        if($this->isMethod('PATCH')){
+            $fields = ['name', 'roles', 'email'];
+
+            foreach ($fields as $field) {
+                if ($this->input($field) === null) {
+                    $this->request->remove($field);
+                }
+            }
+        }
     }
 }

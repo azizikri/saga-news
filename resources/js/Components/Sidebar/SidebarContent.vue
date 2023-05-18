@@ -14,13 +14,19 @@ import SidebarCollapsibleItem from '@/Components/Sidebar/SidebarCollapsibleItem.
             </template>
         </SidebarLink>
 
-        <SidebarLink title="Article" :href="route('articles.index')" :active="route().current('articles.*')">
+        <SidebarLink title="Articles" :href="route('articles.index')" :active="route().current('articles.*')">
             <template #icon>
                 <NewspaperIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
             </template>
         </SidebarLink>
 
-        <SidebarLink title="Category" :href="route('categories.index')" :active="route().current('categories.*')">
+        <SidebarLink title="Categories" :href="route('categories.index')" :active="route().current('categories.*')">
+            <template #icon>
+                <TagIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+            </template>
+        </SidebarLink>
+
+        <SidebarLink title="Users" :href="route('admin.users.index')" :active="route().current('admin.users.*')">
             <template #icon>
                 <TagIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
             </template>
