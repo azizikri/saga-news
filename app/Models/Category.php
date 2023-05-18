@@ -16,4 +16,10 @@ class Category extends Model
     {
         return $this->hasMany(Article::class);
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['name'] ?? false, fn($query) => $query->where('name', 'LIKE', "%{$filters['name']}%"));
+
+    }
 }

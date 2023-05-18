@@ -3,7 +3,7 @@ import InputError from '@/Components/InputError.vue'
 import Label from '@/Components/Label.vue'
 import Button from '@/Components/Button.vue'
 import Input from '@/Components/Input.vue'
-import { Link, useForm, usePage } from '@inertiajs/vue3'
+import { useForm } from '@inertiajs/vue3'
 
 const form = useForm({
     category_id: 1,
@@ -13,7 +13,7 @@ const form = useForm({
 });
 
 function submit() {
-    form.post(route('articles.store'), {forceFormData: true})
+    form.post(route('articles.store'))
 }
 
 defineProps({
@@ -44,7 +44,7 @@ defineProps({
             <div>
                 <Label for="title" value="Title" />
 
-                <Input id="title" type="text" class="mt-1 block w-full" v-model="form.title" required
+                <Input id="title" type="text" class="block w-full mt-1" v-model="form.title" required
                     autocomplete="title" />
 
                 <InputError class="mt-2" :message="form.errors.title" />

@@ -1,10 +1,9 @@
 <script setup>
 import PerfectScrollbar from '@/Components/PerfectScrollbar.vue'
 import SidebarLink from '@/Components/Sidebar/SidebarLink.vue'
-import { DashboardIcon, NewspaperIcon } from '@/Components/Icons/outline'
+import { DashboardIcon, NewspaperIcon, TagIcon } from '@/Components/Icons/outline'
 import SidebarCollapsible from '@/Components/Sidebar/SidebarCollapsible.vue'
 import SidebarCollapsibleItem from '@/Components/Sidebar/SidebarCollapsibleItem.vue'
-import { TemplateIcon } from '@heroicons/vue/outline'
 </script>
 
 <template>
@@ -15,20 +14,26 @@ import { TemplateIcon } from '@heroicons/vue/outline'
             </template>
         </SidebarLink>
 
-        <SidebarLink title="Article" :href="route('articles.index')" :active="route().current('articles.index')">
+        <SidebarLink title="Article" :href="route('articles.index')" :active="route().current('articles.*')">
             <template #icon>
                 <NewspaperIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
             </template>
         </SidebarLink>
 
-        <SidebarCollapsible title="Components" :active="route().current('components.*')">
+        <SidebarLink title="Category" :href="route('categories.index')" :active="route().current('categories.*')">
+            <template #icon>
+                <TagIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+            </template>
+        </SidebarLink>
+
+        <!-- <SidebarCollapsible title="Components" :active="route().current('components.*')">
             <template #icon>
                 <TemplateIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
             </template>
 
             <SidebarCollapsibleItem :href="route('components.buttons')" title="Buttons"
                 :active="route().current('components.buttons')" />
-        </SidebarCollapsible>
+        </SidebarCollapsible> -->
 
         <!-- Examples -->
         <!--

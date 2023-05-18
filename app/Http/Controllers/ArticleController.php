@@ -6,7 +6,6 @@ use Inertia\Inertia;
 use App\Models\Article;
 use App\Models\Category;
 use App\Http\Requests\ArticleRequest;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
@@ -17,16 +16,15 @@ class ArticleController extends Controller
     public function index()
     {
         $filters = [
-            'keyword' => Request::input('keyword'),
+            'keyword' => request(['keyword']),
         ];
-        
+
         // $articles = Article::query()->with(['category', 'user'])->where('user_id', auth()->id())->paginate(10);
         $articles = Article::query()->with(['category', 'user'])->filter($filters)->latest()->paginate(5);
 
         // dd($articles);
         return Inertia::render('Articles/Index', [
             'articles' => $articles->through(fn ($article) => [
-                'id' => $article->id,
                 'title' => $article->title,
                 'slug' => $article->slug,
                 'category' => $article->category->name,
@@ -74,6 +72,7 @@ class ArticleController extends Controller
             'banner' => $article->banner_url,
             'created_at' => $article->created_at->diffForHumans(),
         ];
+        
         return Inertia::render('Articles/Show', [
             'article' => $article,
         ]);

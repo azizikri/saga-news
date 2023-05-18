@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CategoryRequest extends FormRequest
@@ -11,7 +12,7 @@ class CategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -22,7 +23,20 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'string', 'max:255', Rule::unique('categories', 'name')->ignore($this->category),],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if($this->isMethod('PATCH')){
+            $fields = ['name'];
+
+            foreach ($fields as $field) {
+                if ($this->input($field) === null) {
+                    $this->request->remove($field);
+                }
+            }
+        }
     }
 }
