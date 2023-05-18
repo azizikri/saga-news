@@ -3,6 +3,7 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -46,7 +47,7 @@ Route::group(['middleware' => 'auth', 'as' => 'articles.'], function () {
     Route::post('/articles', [ArticleController::class, 'store'])->name('store');
     Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('show');
     Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('edit');
-    Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('update');
+    Route::patch('/articles/{article}', [ArticleController::class, 'update'])->name('update');
     Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('destroy');
 });
 

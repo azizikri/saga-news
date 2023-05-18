@@ -1,6 +1,6 @@
 // Extra icons
 
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export const MenuFoldLineRightIcon = defineComponent({
     setup() {
@@ -18,9 +18,9 @@ export const MenuFoldLineRightIcon = defineComponent({
                     stroke-linejoin="round"
                 />
             </svg>
-        )
+        );
     },
-})
+});
 
 export const MenuFoldLineLeftIcon = defineComponent({
     setup() {
@@ -38,9 +38,9 @@ export const MenuFoldLineLeftIcon = defineComponent({
                     stroke-linejoin="round"
                 />
             </svg>
-        )
+        );
     },
-})
+});
 
 export const DashboardIcon = defineComponent({
     setup() {
@@ -62,9 +62,9 @@ export const DashboardIcon = defineComponent({
                     d="M12 3C9.34784 3 6.8043 4.05357 4.92893 5.92893C3.05357 7.8043 2 10.3478 2 13C2 14.3132 2.25866 15.6136 2.7612 16.8268C3.26375 18.0401 4.00035 19.1425 4.92893 20.0711C5.11647 20.2586 5.37082 20.364 5.63604 20.364H18.364C18.6292 20.364 18.8835 20.2586 19.0711 20.0711C19.9997 19.1425 20.7362 18.0401 21.2388 16.8268C21.7413 15.6136 22 14.3132 22 13C22 10.3478 20.9464 7.8043 19.0711 5.92893C17.1957 4.05357 14.6522 3 12 3ZM6.34315 7.34315C7.84344 5.84285 9.87827 5 12 5C14.1217 5 16.1566 5.84285 17.6569 7.34315C19.1571 8.84344 20 10.8783 20 13C20 14.0506 19.7931 15.0909 19.391 16.0615C19.0406 16.9075 18.5479 17.6861 17.9353 18.364H6.06469C5.45205 17.6861 4.95938 16.9075 4.60896 16.0615C4.20693 15.0909 4 14.0506 4 13C4 10.8783 4.84285 8.84344 6.34315 7.34315Z"
                 />
             </svg>
-        )
+        );
     },
-})
+});
 
 export const ArrowsInnerIcon = defineComponent({
     setup() {
@@ -82,9 +82,30 @@ export const ArrowsInnerIcon = defineComponent({
                     stroke-linejoin="round"
                 />
             </svg>
-        )
+        );
     },
-})
+});
+
+export const NewspaperIcon = defineComponent({
+    setup() {
+        return () => (
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+            >
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"
+                />
+            </svg>
+        );
+    },
+});
 
 export const EmptyCircleIcon = defineComponent({
     setup() {
@@ -102,6 +123,17 @@ export const EmptyCircleIcon = defineComponent({
                     stroke-linejoin="round"
                 />
             </svg>
-        )
+        );
+    },
+})
+
+export const ArrowLeftIcon = defineComponent({
+    setup() {
+        return () => (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+
+        );
     },
 })
