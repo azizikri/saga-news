@@ -7,6 +7,7 @@ import { useForm } from '@inertiajs/vue3'
 
 const form = useForm({
     name: '',
+    is_admin: 'default',
     email: '',
     password: '',
     password_confirmation: '',
@@ -35,6 +36,18 @@ function submit() {
                 <Input id="name" type="text" class="block w-full mt-1" v-model="form.name" required autocomplete="name" />
 
                 <InputError class="mt-2" :message="form.errors.name" />
+            </div>
+
+            <div>
+                <label for="is_admin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select the Role</label>
+                <select id="is_admin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="form.is_admin">
+                    <option value="default" hidden selected disabled>Select the role</option>
+                    <option :value="false">Author</option>
+                    <option :value="true">Admin</option>
+                </select>
+
+                <InputError class="mt-2" :message="form.errors.is_admin" />
+
             </div>
 
             <div>

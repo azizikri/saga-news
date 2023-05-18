@@ -46,6 +46,7 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
+            'admin' => (boolean) auth()->check() && auth()->user()->is_admin,
         ]);
     }
 }

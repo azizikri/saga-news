@@ -15,6 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('admin', auth()->user());
+
         $filters = [
             'name' => request('name'),
         ];
@@ -27,6 +29,7 @@ class UserController extends Controller
                     'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,
+                    'role' => $user->is_admin ? 'Admin' : 'Author',
                     'created_at' => $user->created_at->format('Y-m-d'),
                 ];
             }),
@@ -38,6 +41,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('admin', auth()->user());
+
         return Inertia::render('Admin/Users/Form');
     }
 
@@ -46,7 +51,10 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $this->authorize('admin', auth()->user());
+
         $data = $request->validated();
+        // dd($data);
 
         $data['password'] = bcrypt($data['password']);
 
@@ -74,6 +82,8 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
+        $this->authorize('admin', auth()->user());
+
         $data = $request->validated();
 
         if($request->password != null)
@@ -91,6 +101,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('admin', auth()->user());
+
         $user->delete();
 
         return redirect()->route('admin.users.index')->with('success', 'User deleted.');

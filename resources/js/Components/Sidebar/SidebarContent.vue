@@ -1,9 +1,10 @@
 <script setup>
 import PerfectScrollbar from '@/Components/PerfectScrollbar.vue'
 import SidebarLink from '@/Components/Sidebar/SidebarLink.vue'
-import { DashboardIcon, NewspaperIcon, TagIcon } from '@/Components/Icons/outline'
-import SidebarCollapsible from '@/Components/Sidebar/SidebarCollapsible.vue'
-import SidebarCollapsibleItem from '@/Components/Sidebar/SidebarCollapsibleItem.vue'
+import { DashboardIcon, NewspaperIcon, TagIcon, UserGroupIcon } from '@/Components/Icons/outline'
+import { usePage } from '@inertiajs/vue3'
+
+const admin = usePage().props.admin
 </script>
 
 <template>
@@ -26,9 +27,9 @@ import SidebarCollapsibleItem from '@/Components/Sidebar/SidebarCollapsibleItem.
             </template>
         </SidebarLink>
 
-        <SidebarLink title="Users" :href="route('admin.users.index')" :active="route().current('admin.users.*')">
+        <SidebarLink v-if="admin" title="Users" :href="route('admin.users.index')" :active="route().current('admin.users.*')">
             <template #icon>
-                <TagIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
+                <UserGroupIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
             </template>
         </SidebarLink>
 
