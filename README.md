@@ -8,7 +8,7 @@
 git clone https://github.com/azizikri/saga-news.git && cd saga-news
 ```
 
-- Install dependencies
+- Install dependencies and build the Front-End
 
 ```bash
 composer install && npm install && npm run build
@@ -26,7 +26,13 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-- Create a database and update .env file with your database credentials and your google oauth credentials
+- Generate Storage link
+
+```bash
+php artisan storage:link
+```
+
+- Create a database and update .env file with your database credentials and your Google Oauth credentials
 
 - Migrate database
 
@@ -40,7 +46,7 @@ php artisan migrate --seed
 php artisan serve
 ```
 
-- Login with the following credentials
+- Login with the following credentials to access the admin account
 
 ```bash
 email: admin@gmail.com

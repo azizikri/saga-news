@@ -6,7 +6,7 @@ import Input from '@/Components/Input.vue'
 import { useForm } from '@inertiajs/vue3'
 
 const form = useForm({
-    category_id: 1,
+    category_id: 'default',
     title: '',
     content: '',
     banner: null,
@@ -34,6 +34,7 @@ defineProps({
             <div>
                 <label for="category_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select the category</label>
                 <select id="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="form.category_id">
+                    <option value="default" disabled hidden selected>Select a category</option>
                     <option v-for="(name, id) in categories" :key="id" :value="id">{{ name }}</option>
                 </select>
 
