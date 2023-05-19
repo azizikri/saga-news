@@ -1,17 +1,37 @@
 <script setup>
 import Pagination from '@/Components/Pagination.vue';
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue'
+import Modal from '@/Components/Modal.vue'
+import Button from '@/Components/Button.vue'
 import { Link, router, usePage } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
+
+const confirmingUserDeletion = ref(false)
+const userToDelete = ref(null);
 
 function deleteUser(user) {
     if (auth.id === user.id) {
         router.get('/profile#delete-account-form');
     } else {
         router.delete(route('admin.users.destroy', user), {
-            onBefore: () => confirm(`Are you sure you want to delete ${user.name}?`),
+            onFinish: () => {
+                closeModal()
+            },
         });
     }
+}
+
+const confirmUserDeletion = (user) => {
+    if (auth.id === user.id) {
+        router.get('/profile#delete-account-form');
+    } else {
+        userToDelete.value = user
+        confirmingUserDeletion.value = true
+    }
+}
+
+const closeModal = () => {
+    confirmingUserDeletion.value = false
 }
 
 let auth = usePage().props.auth.user;
@@ -102,8 +122,10 @@ watch(name, value => {
                                 <Link :href="auth.id != user.id ? route('admin.users.edit', user) : route('profile.edit')"
                                     class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">
                                 Edit</Link>
-                                <Button @click="deleteUser(user)"
-                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</Button>
+                                <Button @click="confirmUserDeletion(user)"
+                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                    Delete
+                                </Button>
                             </td>
                         </tr>
                     </tbody>
@@ -111,5 +133,27 @@ watch(name, value => {
             </div>
             <Pagination :links="users.links" />
         </div>
+        <Modal :show="confirmingUserDeletion" @close="closeModal">
+            <div class="p-6">
+                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                    Are you sure you want to delete {{ userToDelete.name }}?
+                </h2>
+
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    Once this user is deleted, all of its resources and data
+                    will be permanently deleted.
+                </p>
+
+                <div class="flex justify-end mt-6">
+                    <Button variant="secondary" @click="closeModal">
+                        Cancel
+                    </Button>
+
+                    <Button variant="danger" class="ml-3" @click="deleteUser(userToDelete.id)">
+                        Delete User
+                    </Button>
+                </div>
+            </div>
+        </Modal>
     </AuthenticatedLayout>
 </template>
