@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Article;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ArticleRequest extends FormRequest
@@ -27,7 +28,7 @@ class ArticleRequest extends FormRequest
             'category_id' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'exists:categories,id'],
             'title' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'string', 'max:255'],
             'content' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'string'],
-            'banner' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'image', 'max:1024', 'mimes:jpeg,png,jpg,gif,webp'],
+            'banner' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), File::image()->max(3 * 1024)],
         ];
     }
 

@@ -1,14 +1,32 @@
 <script setup>
 import Pagination from '@/Components/Pagination.vue';
 import AuthenticatedLayout from '@/Layouts/Authenticated.vue'
+import Modal from '@/Components/Modal.vue'
+import Button from '@/Components/Button.vue'
 import { Link, router } from '@inertiajs/vue3';
 import { ref, watch } from 'vue';
 
+const confirmingArticleDeletion = ref(false)
+const articleToDelete = ref(null);
+
 function deleteArticle(slug) {
     router.delete(route('articles.destroy', slug), {
-        onBefore: () => confirm('Are you sure you want to delete this user?'),
+        onFinish: () => {
+            closeModal()
+        }
     });
 }
+
+const confirmArticleDeletion = (article) => {
+    articleToDelete.value = article
+    confirmingArticleDeletion.value = true
+}
+
+const closeModal = () => {
+    confirmingArticleDeletion.value = false
+}
+
+
 
 defineProps({
     articles: Object
@@ -64,7 +82,7 @@ watch(keyword, value => {
                                 Title
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Category
+                                Article
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Author
@@ -84,7 +102,7 @@ watch(keyword, value => {
                                 {{ article.title }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ article.category }}
+                                {{ article.article }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ article.user }}
@@ -99,13 +117,38 @@ watch(keyword, value => {
                                 <Link :href="route('articles.edit', article.slug)"
                                     class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">
                                 Edit</Link>
-                                <Button @click="deleteArticle(article.slug)"
-                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</Button>
+                                <Button @click="confirmArticleDeletion(article)"
+                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                    Delete
+                                </Button>
                             </td>
                         </tr>
                     </tbody>
-            </table>
+                </table>
+            </div>
+            <Pagination :links="articles.links" />
         </div>
-        <Pagination :links="articles.links" />
-    </div>
-</AuthenticatedLayout></template>
+        <Modal :show="confirmingArticleDeletion" @close="closeModal">
+            <div class="p-6">
+                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                    Are you sure you want to delete {{ articleToDelete.title }}?
+                </h2>
+
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    Once this article is deleted, all of its resources and data
+                    will be permanently deleted.
+                </p>
+
+                <div class="flex justify-end mt-6">
+                    <Button variant="secondary" @click="closeModal">
+                        Cancel
+                    </Button>
+
+                    <Button variant="danger" class="ml-3" @click="deleteArticle(articleToDelete.slug)">
+                        Delete Article
+                    </Button>
+                </div>
+            </div>
+        </Modal>
+    </AuthenticatedLayout>
+</template>
