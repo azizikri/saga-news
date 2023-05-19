@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Article;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArticleResource;
 use App\Http\Resources\ArticleCollection;
@@ -18,7 +17,7 @@ class ArticleController extends Controller
     {
         $data = $request->validated();
 
-        $articles = Article::query()->with('category')->filter($data)->latest()->paginate(10);
+        $articles = Article::query()->with(['category', 'user'])->filter($data)->latest()->paginate(10);
 
         return new ArticleCollection($articles);
     }

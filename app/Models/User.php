@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
+        'social_id', 
+        'social_type',
     ];
 
     /**
@@ -42,4 +45,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['name'] ?? false, fn ($query) => $query->where('name', 'LIKE', "%{$filters['name']}%"));
+
+    }
 }

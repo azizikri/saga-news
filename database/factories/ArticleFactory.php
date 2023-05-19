@@ -18,6 +18,7 @@ class ArticleFactory extends Factory
     {
         return [
             'category_id' => CategoryFactory::new(),
+            'user_id' => UserFactory::new(),
             'title' => fake()->word(),
             'slug' => fake()->unique()->slug(),
             'content' => fake()->paragraph,
