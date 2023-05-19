@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
             'name' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'string', 'max:255'],
             'is_admin' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'boolean'],
             'email' => [Rule::when($this->isMethod('POST'), 'required', 'sometimes'), 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
-            'password' => ['sometimes', 'string', 'min:8', 'confirmed', Password::defaults()],
+            'password' => ['sometimes', 'confirmed', Password::defaults()],
         ];
     }
 
