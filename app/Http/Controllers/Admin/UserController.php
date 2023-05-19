@@ -68,6 +68,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('adminSelf', $user);
+
         return Inertia::render('Admin/Users/Form', [
             'user' => [
                 'id' => $user->id,
@@ -83,12 +85,11 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $this->authorize('admin', auth()->user());
+        $this->authorize('adminSelf', $user);
 
         $data = $request->validated();
 
-        if($request->password != null)
-        {
+        if ($request->password != null) {
             $data['password'] = bcrypt($data['password']);
         }
 
@@ -102,7 +103,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $this->authorize('admin', auth()->user());
+        $this->authorize('adminSelf', $user);
 
         $user->delete();
 
