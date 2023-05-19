@@ -40,6 +40,6 @@ class GoogleSocialiteController extends Controller
 
         Auth::login($checkUser, true);
 
-        return redirect()->route('dashboard');
+        return redirect('/profile#update-password-form');
     }
 }

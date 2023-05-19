@@ -36,7 +36,7 @@ const updatePassword = () => {
 </script>
 
 <template>
-    <section>
+    <section id="update-password-form">
         <header>
             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                 Update Password
@@ -44,13 +44,13 @@ const updatePassword = () => {
 
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
                 Ensure your account is using a long, random password to stay
-                secure.
+                secure, and please set a new password if you did not have any
             </p>
         </header>
 
         <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
-            <div>
-                <Label for="current_password" value="Current Password (Leave Blank if login with google)" />
+            <div v-if="auth.has_password">
+                <Label for="current_password" value="Current Password" />
 
                 <Input id="current_password" ref="currentPasswordInput" v-model="form.current_password" type="password"
                     class="block w-full mt-1" autocomplete="current-password" />

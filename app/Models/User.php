@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
-        'social_id', 
+        'social_id',
         'social_type',
     ];
 
@@ -46,6 +46,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected $appends = ['has_password'];
+
+    public function getHasPasswordAttribute()
+    {
+        return ! empty($this->attributes['password']);
+    }
 
     public function articles()
     {
