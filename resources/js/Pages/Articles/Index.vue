@@ -102,7 +102,7 @@ watch(keyword, value => {
                                 {{ article.title }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ article.article }}
+                                {{ article.category }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ article.user }}
