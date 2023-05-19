@@ -22,7 +22,6 @@ const confirmUserDeletion = () => {
 
 const deleteUser = () => {
     form.delete(route('profile.destroy'), {
-        preserveScroll: true,
         onSuccess: () => closeModal(),
         onError: () => passwordInput.value.focus(),
         onFinish: () => form.reset(),
@@ -70,12 +69,12 @@ const closeModal = () => {
                     <Label for="password" value="Password" class="sr-only" />
 
                     <Input id="password" ref="passwordInput" v-model="form.password" type="password"
-                        class="mt-1 block w-3/4" placeholder="Password" @keyup.enter="deleteUser" />
+                        class="block w-3/4 mt-1" placeholder="Password" @keyup.enter="deleteUser" />
 
                     <InputError :message="form.errors.password" class="mt-2" />
                 </div>
 
-                <div class="mt-6 flex justify-end">
+                <div class="flex justify-end mt-6">
                     <Button variant="secondary" @click="closeModal">
                         Cancel
                     </Button>
