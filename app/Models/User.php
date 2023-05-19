@@ -21,7 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_admin'
+        'is_admin',
+        'social_id', 
+        'social_type',
     ];
 
     /**
@@ -52,7 +54,7 @@ class User extends Authenticatable
 
     public function scopeFilter($query, array $filters)
     {
-        $query->when($filters['name'] ?? false, fn($query) => $query->where('name', 'LIKE', "%{$filters['name']}%"));
+        $query->when($filters['name'] ?? false, fn ($query) => $query->where('name', 'LIKE', "%{$filters['name']}%"));
 
     }
 }

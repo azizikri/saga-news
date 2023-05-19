@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useForm } from '@inertiajs/vue3'
+import { useForm, usePage } from '@inertiajs/vue3'
 import Label from '@/Components/Label.vue'
 import Input from '@/Components/Input.vue'
 import InputError from '@/Components/InputError.vue'
@@ -8,6 +8,8 @@ import Button from '@/Components/Button.vue'
 
 const passwordInput = ref(null)
 const currentPasswordInput = ref(null)
+
+const auth = usePage().props.auth.user
 
 const form = useForm({
     current_password: '',
@@ -48,10 +50,10 @@ const updatePassword = () => {
 
         <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
             <div>
-                <Label for="current_password" value="Current Password" />
+                <Label for="current_password" value="Current Password (Leave Blank if login with google)" />
 
                 <Input id="current_password" ref="currentPasswordInput" v-model="form.current_password" type="password"
-                    class="mt-1 block w-full" autocomplete="current-password" />
+                    class="block w-full mt-1" autocomplete="current-password" />
 
                 <InputError :message="form.errors.current_password" class="mt-2" />
             </div>
@@ -59,7 +61,7 @@ const updatePassword = () => {
             <div>
                 <Label for="password" value="New Password" />
 
-                <Input id="password" ref="passwordInput" v-model="form.password" type="password" class="mt-1 block w-full"
+                <Input id="password" ref="passwordInput" v-model="form.password" type="password" class="block w-full mt-1"
                     autocomplete="new-password" />
 
                 <InputError :message="form.errors.password" class="mt-2" />
@@ -69,7 +71,7 @@ const updatePassword = () => {
                 <Label for="password_confirmation" value="Confirm Password" />
 
                 <Input id="password_confirmation" v-model="form.password_confirmation" type="password"
-                    class="mt-1 block w-full" autocomplete="new-password" />
+                    class="block w-full mt-1" autocomplete="new-password" />
 
                 <InputError :message="form.errors.password_confirmation" class="mt-2" />
             </div>

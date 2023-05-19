@@ -7,6 +7,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\GoogleSocialiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,4 +78,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'], fu
 });
 
 
+Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback'])->name('google.callback');
 require __DIR__ . '/auth.php';
