@@ -8,7 +8,7 @@
 git clone https://github.com/azizikri/saga-news.git && cd saga-news
 ```
 
-- Install dependencies
+- Install dependencies and build the Front-End
 
 ```bash
 composer install && npm install && npm run build
@@ -40,7 +40,7 @@ php artisan migrate --seed
 php artisan serve
 ```
 
-- Login with the following credentials
+- Login with the following credentials to access the admin account
 
 ```bash
 email: admin@gmail.com
