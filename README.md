@@ -26,7 +26,13 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-- Create a database and update .env file with your database credentials and your google oauth credentials
+- Generate Storage link
+
+```bash
+php artisan storage:link
+```
+
+- Create a database and update .env file with your database credentials and your Google Oauth credentials
 
 - Migrate database
 
