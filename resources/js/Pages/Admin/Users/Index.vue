@@ -9,7 +9,7 @@ function deleteUser(user) {
         router.get('/profile#delete-account-form');
     } else {
         router.delete(route('admin.users.destroy', user), {
-            onBefore: () => confirm('Are you sure you want to delete this user?'),
+            onBefore: () => confirm(`Are you sure you want to delete ${user.name}?`),
         });
     }
 }
@@ -85,7 +85,7 @@ watch(name, value => {
                     </thead>
                     <tbody>
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="user in users.data"
-                            :key="user.slug">
+                            :key="user.id">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ user.name }}
                             </th>
